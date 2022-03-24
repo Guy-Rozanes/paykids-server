@@ -4,7 +4,7 @@ from flask import request
 
 @app.route('/create', methods=['POST'])
 def create():
-    return "Hello world"
+    return {'message': "Created succesfully"}
 
 
 @app.route('/account/<int:account_id>')

@@ -11,8 +11,7 @@ def login():
             if item['password'] == password:
                 return {'message': 'login successfully'}
 
-    return {'message':'login failed user or password is incorrect'}
-
+    return {'message': 'login failed user or password is incorrect'}
 
 
 users = [
