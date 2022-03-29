@@ -1,26 +1,14 @@
 from app import app
-from flask import request
+from flask import request, Response
+from database import users_table
 
 
 @app.route("/login")
 def login():
-    username = request.args.get('username')
+    email = request.args.get('email')
     password = request.args.get('password')
-    for item in users:
-        if item['username'] == username:
-            if item['password'] == password:
-                return {'message': 'login successfully'}
-
-    return {'message': 'login failed user or password is incorrect'}
-
-
-users = [
-    {
-        'username': 'guy rozanes',
-        'password': '123',
-    },
-    {
-        'username': 'bla bla',
-        'password': '123',
-    }
-]
+    user = users_table.UsersTable().get_user_by_email(email)
+    if user[0]['password'] == password:
+        return Response({'message': 'login successfully'}, 200)
+    else:
+        return Response({'message': 'login failed'}, 406)
