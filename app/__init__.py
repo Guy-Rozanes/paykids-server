@@ -8,3 +8,6 @@ app.config['CORS_HEADERS'] = 'Content-Type'
 from app.signup import routes
 from app.login import routes
 from app.family import routes
+from app.actions import routes
+from app.family_account_type import routes
+from app.targets import routes

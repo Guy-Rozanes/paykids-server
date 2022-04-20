@@ -20,6 +20,4 @@ def signup():
     users_table.UsersTable().insert_user(email=userId, password=password, family_id=family_id, family_role=family_role,
                                          firstname=firstname, lastname=lastname, paybox_id=paybox_id)
 
-    return {'message': 'signup successfully'}
-
-
+    return {'message': 'signup successfully', 'family_id': family_id}
