@@ -11,3 +11,5 @@ from app.family import routes
 from app.actions import routes
 from app.family_account_type import routes
 from app.targets import routes
+from app.amount import routes
+from app.user_savings import routes

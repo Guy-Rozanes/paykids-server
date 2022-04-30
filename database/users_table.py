@@ -25,3 +25,9 @@ class UsersTable():
             cur = conn.cursor()
             cur.execute(f'Select * from Users where FamilyId="{family_id}"')
             return cur.fetchall()
+
+    def get_my_kids(self, family_id):
+        with sqlite3.connect(r'C:\Users\Guy Rozanes\Desktop\paykids.db', isolation_level=None) as conn:
+            cur = conn.cursor()
+            cur.execute(f'Select * from users where users.FamilyRole!="Owner" and users.FamilyId="{family_id}"')
+            return cur.fetchall()
