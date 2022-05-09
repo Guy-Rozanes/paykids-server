@@ -27,6 +27,7 @@ def get_family_action(family_id):
                     'action_id': user_action[1],
                     'action_name': user_action[2],
                     'action_price': user_action[3],
+                    'action_seen': user_action[4],
                 }
             )
         else:
@@ -37,6 +38,7 @@ def get_family_action(family_id):
                     'action_id': user_action[1],
                     'action_name': user_action[2],
                     'action_price': user_action[3],
+                    'action_seen': user_action[4],
                 }
             ]
 
@@ -51,6 +53,16 @@ def add_action():
     price = request.json.get('price')
     try:
         user_actions_table.UsersActionTable().add_user_actions(userId, productName, price)
+        return {'message': 'Inserted successfully'}
+    except:
+        return {'message': 'error'}
+
+
+@app.route("/actions/<string:action_id>", methods=['PUT', 'OPTIONS'])
+@cross_origin()
+def mark_action_as_read(action_id):
+    try:
+        user_actions_table.UsersActionTable().update_seen_to_true(action_id)
         return {'message': 'Inserted successfully'}
     except:
         return {'message': 'error'}

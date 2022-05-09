@@ -16,3 +16,10 @@ class UserSavingsTable():
             cur.execute(
                 f'SELECT * from UserSavings where UserId="{email}"')
             return cur.fetchall()
+
+    def update_status(self, saving_id):
+        with sqlite3.connect(r'C:\Users\Guy Rozanes\Desktop\paykids.db', isolation_level=None) as conn:
+            cur = conn.cursor()
+            cur.execute(
+                f'UPDATE UserSavings set Status=1 where SavingId="{saving_id}"')
+            conn.commit()

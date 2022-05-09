@@ -11,7 +11,7 @@ def get_user_targets(user_id):
     if users_targets:
         return {'message': users_targets}
     else:
-        return {'message': 'User doesnt have actions'}
+        return {'message': 'User doesnt have targets'}
 
 
 @app.route("/family/targets/<string:family_id>", methods=['GET'])

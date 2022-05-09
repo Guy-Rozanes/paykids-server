@@ -25,3 +25,14 @@ def get_my_saving(user_id):
         return {'message': my_savings}
     except:
         return {'message': 'error'}
+
+@app.route("/savings/<string:saving_id>", methods=['PUT', 'OPTIONS'])
+@cross_origin()
+def mark_task_as_complete(saving_id):
+    try:
+        user_saving_table.UserSavingsTable().update_status(saving_id)
+        return {'message': 'Task mark has completed'}
+    except:
+        return {'message': 'error'}
+
+
