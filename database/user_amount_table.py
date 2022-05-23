@@ -30,3 +30,10 @@ class UsersAmountTable():
             cur.execute(
                 f'SELECT UserAmount.UserId,UserAmount.UserBankNumber,UserAmount.Amount FROM UserAmount JOIN Users ON Users.UserId=UserAmount.UserId where Users.FamilyId="{family_id}"')
             return cur.fetchall()
+
+    def delete_user(self,user_id):
+        with sqlite3.connect(r'C:\Users\Guy Rozanes\Desktop\paykids.db', isolation_level=None) as conn:
+            cur = conn.cursor()
+            cur.execute(
+                f'Delete from UserAmount WHERE UserId="{user_id}"')
+            conn.commit()

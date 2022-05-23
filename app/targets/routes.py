@@ -54,3 +54,10 @@ def add_target():
         return {'message': 'Inserted successfully'}
     except:
         return {'message': 'error'}
+
+
+@app.route("/targets/<string:target_id>", methods=['DELETE', 'OPTIONS'])
+@cross_origin()
+def delete_target(target_id):
+    user_target_table.UsersTargetsTable().delete_target(target_id)
+    return {'message': 'Deleted'}

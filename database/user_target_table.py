@@ -23,3 +23,16 @@ class UsersTargetsTable():
             cur.execute(
                 f'SELECT UsersTargets.UserId,UsersTargets.TargetId,UsersTargets.TargetName,UsersTargets.TargetPrice FROM UsersTargets JOIN Users ON Users.UserId=UsersTargets.UserId where Users.FamilyId="{family_id}"')
             return cur.fetchall()
+
+    def delete_target(self, target_id):
+        with sqlite3.connect(r'C:\Users\Guy Rozanes\Desktop\paykids.db', isolation_level=None) as conn:
+            cur = conn.cursor()
+            cur.execute(f'Delete from UsersTargets where TargetId="{target_id}"')
+            conn.commit()
+
+    def delete_user(self,user_id):
+        with sqlite3.connect(r'C:\Users\Guy Rozanes\Desktop\paykids.db', isolation_level=None) as conn:
+            cur = conn.cursor()
+            cur.execute(
+                f'Delete from UsersTargets WHERE UserId="{user_id}"')
+            conn.commit()

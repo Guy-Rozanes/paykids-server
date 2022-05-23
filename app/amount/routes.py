@@ -63,3 +63,5 @@ def update_amount(user_id: str):
         return {'message': 'Inserted successfully'}
     except:
         return {'message': 'error'}
+
+

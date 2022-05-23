@@ -23,3 +23,10 @@ class UserSavingsTable():
             cur.execute(
                 f'UPDATE UserSavings set Status=1 where SavingId="{saving_id}"')
             conn.commit()
+
+    def get_all_family_savings(self, family_id):
+        with sqlite3.connect(r'C:\Users\Guy Rozanes\Desktop\paykids.db', isolation_level=None) as conn:
+            cur = conn.cursor()
+            cur.execute(
+                f'SELECT UserSavings.UserId,UserSavings.SavingId,UserSavings.SavingName,UserSavings.SavingPrice,UserSavings.Status FROM UserSavings JOIN Users ON Users.UserId=UserSavings.UserId where Users.FamilyId="{family_id}"')
+            return cur.fetchall()

@@ -2,6 +2,21 @@ import sqlite3
 
 
 class UsersTable():
+    def update_user(self, email, password, firstname, lastname):
+        with sqlite3.connect(r'C:\Users\Guy Rozanes\Desktop\paykids.db', isolation_level=None) as conn:
+            cur = conn.cursor()
+            cur.execute(
+                f'Update Users SET FirstName="{firstname}" ,LastName="{lastname}",Password="{password}" where UserId="{email}"')
+            conn.commit()
+
+    def delete_user(self, email):
+        with sqlite3.connect(r'C:\Users\Guy Rozanes\Desktop\paykids.db', isolation_level=None) as conn:
+            cur = conn.cursor()
+            cur.execute(
+                f'DELETE from Users where UserId="{email}"')
+            conn.commit()
+
+
     def insert_user(self, email, password, family_id, family_role, firstname, lastname, paybox_id):
         with sqlite3.connect(r'C:\Users\Guy Rozanes\Desktop\paykids.db', isolation_level=None) as conn:
             cur = conn.cursor()

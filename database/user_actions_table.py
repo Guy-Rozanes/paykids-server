@@ -31,3 +31,10 @@ class UsersActionTable():
             cur.execute(
                 f'Update UsersActions SET Seen={True} Where ActionId="{action_id}"')
             conn.commit()
+
+    def delete_user(self,user_id):
+        with sqlite3.connect(r'C:\Users\Guy Rozanes\Desktop\paykids.db', isolation_level=None) as conn:
+            cur = conn.cursor()
+            cur.execute(
+                f'Delete from UsersActions WHERE UserId="{user_id}"')
+            conn.commit()
