@@ -48,7 +48,15 @@ def get_family_targets(family_id):
 def add_target():
     user_id = request.json.get('email')
     target_name = request.json.get('targetName')
+    if not target_name:
+        return {'message':'Please Enter Target Name'}
     price = request.json.get('targetPrice')
+    if not price:
+        return {'message': 'Please Enter Price'}
+    else:
+        if not price.isdecimal():
+            return {'message': 'Please Enter Real Price'}
+
     try:
         user_target_table.UsersTargetsTable().add_user_target(user_id, target_name, price)
         return {'message': 'Inserted successfully'}

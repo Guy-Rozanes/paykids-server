@@ -1,6 +1,7 @@
 from flask_cors import cross_origin
 from flask import request
 from app import app
+from app.paybox_client.routes import PayboxConnection
 from database import user_actions_table
 
 
@@ -49,10 +50,19 @@ def get_family_action(family_id):
 @cross_origin()
 def add_action():
     userId = request.json.get('email')
-    productName = request.json.get('productName')
+    product_name = request.json.get('productName')
+    if not product_name:
+        return {'message': 'Please Enter Product Name'}
     price = request.json.get('price')
+    group_id = request.json.get('paybox_group')
+    if not price:
+        return {'message': 'Please Enter Price'}
+    else:
+        if not price.isdecimal():
+            return {'message': 'Please Enter a Real Price'}
+    PayboxConnection(userId, userId, group_id).create_a_payment(price)
     try:
-        user_actions_table.UsersActionTable().add_user_actions(userId, productName, price)
+        user_actions_table.UsersActionTable().add_user_actions(userId, product_name, price)
         return {'message': 'Inserted successfully'}
     except:
         return {'message': 'error'}
@@ -64,5 +74,17 @@ def mark_action_as_read(action_id):
     try:
         user_actions_table.UsersActionTable().update_seen_to_true(action_id)
         return {'message': 'Inserted successfully'}
+    except:
+        return {'message': 'error'}
+
+
+@app.route("/actions/sync", methods=['POST', 'OPTIONS'])
+@cross_origin()
+def sync_from_paybox():
+    paybox_id = request.json.get('paybox_id')
+    username = request.json.get('username')
+    password = request.json.get('password')
+    try:
+        return PayboxConnection(username, password, paybox_id).get_group_bills()
     except:
         return {'message': 'error'}
