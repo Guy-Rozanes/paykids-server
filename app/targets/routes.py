@@ -49,7 +49,7 @@ def add_target():
     user_id = request.json.get('email')
     target_name = request.json.get('targetName')
     if not target_name:
-        return {'message':'Please Enter Target Name'}
+        return {'message': 'Please Enter Target Name'}
     price = request.json.get('targetPrice')
     if not price:
         return {'message': 'Please Enter Price'}

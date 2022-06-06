@@ -3,7 +3,6 @@ import uuid
 from app import app
 from flask import request
 import database
-from app.paybox_client.routes import PayboxConnection
 
 
 @app.route('/signup/', methods=['POST', 'OPTIONS'])
@@ -23,19 +22,13 @@ def signup():
         return {'message': 'Enter Last Name'}
     family_role = request.json.get('familyRole')
     paybox_id = str(request.json.get('paybox_id'))
-    account_code = str(request.json.get('account_code'))
-    account_number = str(request.json.get('account_code'))
     family_id = uuid.uuid4()
     if request.json.get('family_id'):
         family_id = request.json.get('family_id')
     database.users_table.UsersTable().insert_user(email=userId, password=password, family_id=family_id,
                                                   family_role=family_role,
                                                   firstname=firstname, lastname=lastname, paybox_id=paybox_id)
-    if paybox_id and account_code and account_number:
-        PayboxConnection(username=userId, password=password, group_id=paybox_id).get_digital_wallet(
-            account_number,
-            account_code,
-        )
+
     return {'message': 'signup successfully', 'family_id': family_id}
 
 
