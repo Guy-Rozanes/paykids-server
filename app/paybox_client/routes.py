@@ -1,4 +1,5 @@
 import requests
+import random
 
 
 class PayboxConnection():
@@ -30,6 +31,23 @@ class PayboxConnection():
         return result
 
     def get_group_bills(self, ):
+        product_number = random.randint(0, 13)
+        products = [
+            {'product_name': 'Gum', 'product_price': 2},
+            {'product_name': 'Magnoom', 'product_price': 10},
+            {},
+            {'product_name': 'Candy', 'product_price': 5},
+            {'product_name': 'Supergoal', 'product_price': 15},
+            {},
+            {'product_name': 'T-Shirt', 'product_price': 30},
+            {},
+            {'product_name': 'Shoes', 'product_price': 200},
+            {},
+            {'product_name': 'Coca Cola', 'product_price': 9},
+            {'product_name': 'Sprite', 'product_price': 8},
+            {},
+            {'product_name': 'Fuze Tea', 'product_price': 7},
+        ]
         url = 'https://paybox.com.co/bills'
         headers = {
             'AUTHORIZATION': f'Bearer token{self.group_id}'
@@ -38,4 +56,7 @@ class PayboxConnection():
             'groupId': self.group_id,
         }
         response = requests.request("POST", url, headers=headers, data=payload)
-        return response.text
+        return {
+            'message': products[product_number]
+        }
+

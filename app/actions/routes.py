@@ -60,7 +60,6 @@ def add_action():
     else:
         if not price.isdecimal():
             return {'message': 'Please Enter a Real Price'}
-    PayboxConnection(userId, userId, group_id).create_a_payment(price)
     try:
         user_actions_table.UsersActionTable().add_user_actions(userId, product_name, price)
         return {'message': 'Inserted successfully'}

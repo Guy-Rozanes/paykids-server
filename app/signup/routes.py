@@ -5,7 +5,7 @@ from flask import request
 import database
 
 
-@app.route('/signup/', methods=['POST', 'OPTIONS'])
+@app.route('/signup/', methods=['POST'])
 @cross_origin()
 def signup():
     userId = request.json.get('email')
