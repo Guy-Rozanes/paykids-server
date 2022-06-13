@@ -25,6 +25,9 @@ def signup():
     family_id = uuid.uuid4()
     if request.json.get('family_id'):
         family_id = request.json.get('family_id')
+    user = database.users_table.UsersTable().get_user_by_email(userId)
+    if user:
+        return {'message': 'Email Already Exist'}
     database.users_table.UsersTable().insert_user(email=userId, password=password, family_id=family_id,
                                                   family_role=family_role,
                                                   firstname=firstname, lastname=lastname, paybox_id=paybox_id)
