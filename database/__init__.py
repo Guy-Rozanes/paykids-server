@@ -4,4 +4,4 @@ from . import family_type_table
 from . import user_target_table
 from . import user_amount_table
 from . import user_saving_table
-
+from . import users_card_table
