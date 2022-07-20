@@ -18,7 +18,7 @@ class UsersCardTable():
         with sqlite3.connect(filename, isolation_level=None) as conn:
             cur = conn.cursor()
             cur.execute(
-                f'Delete from CardExp where CardLast4="{last4_numbers}" and {exp_card}')
+                f'Delete from CardExp where CardLast4="{last4_numbers}" and CardExp="{exp_card}"')
             conn.commit()
 
     def get_card_by_email(self, email):
